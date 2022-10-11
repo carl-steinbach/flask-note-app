@@ -22,6 +22,8 @@
         </ul>
         {% endif %}
         <div>{{ form.password.label }} {{ form.password() }}</div>
+        <!-- TODO: set recaptcha key -->
+        {{ form.recaptcha }}
         {{ form.submit() }}
     </form>
 {% endblock %}

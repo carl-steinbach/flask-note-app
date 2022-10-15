@@ -1,9 +1,11 @@
 """The Application Factory"""
 
 from flask import Flask
-import os 
+from flask_sqlalchemy import SQLAlchemy 
+import os
 
 # global libraries
+db = SQLAlchemy()
 
 def create_app(test_config=None):
     # create and configure the flask app
@@ -15,8 +17,14 @@ def create_app(test_config=None):
         os.makedirs(app.instance_path)
     except OSError:
         pass
+
+    db.init_app(app)
     
     with app.app_context():
+        # import database models and create tables
+        from . import models
+        db.create_all()
+
         # import and register blueprints
         from .index import index
         from .auth import auth

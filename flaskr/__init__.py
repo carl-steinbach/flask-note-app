@@ -1,7 +1,7 @@
 """The Application Factory"""
 
 from flask import Flask
-import os
+import os 
 
 # global libraries
 

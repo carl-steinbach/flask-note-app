@@ -5,7 +5,7 @@ basedir = path.abspath(path.dirname(__file__))
 load_dotenv(path.join(basedir, '.env'))
 
 class Config:
-    SECRET_KEY = environ.get('SECRET_KEY')
+    SECRET_KEY = environ.get('SECRET_KEY', 'default_key')
     RECAPTCHA_PUBLIC_KEY = environ.get('RECAPTCHA_PUBLIC_KEY')
     RECAPTCHA_SECRET_KEY = environ.get('RECAPTCHA_SECRET_KEY')
     TEMPLATES_FOLDER = 'templates'

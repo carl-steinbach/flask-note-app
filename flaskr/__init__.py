@@ -22,7 +22,7 @@ def create_app(test_config=None):
     
     with app.app_context():
         # import database models and create tables
-        from . import models
+        from .models import User, Note
         db.create_all()
 
         # import and register blueprints

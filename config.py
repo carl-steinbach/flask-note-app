@@ -12,6 +12,7 @@ class Config:
     TEMPLATES_FOLDER = 'templates'
     STATIC_FOLDER = 'static'
     SQLALCHEMY_DATABASE_URI = environ.get('SQLALCHEMY_DATABASE_URI', 'sqlite:///' + os.path.join(basedir + 'note.db'))
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 class Development:
     FLASK_ENV = 'development'

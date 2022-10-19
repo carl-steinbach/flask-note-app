@@ -21,5 +21,4 @@ class Note(db.Model):
     content = Column(Text)
 
     def __repr__(self) -> str:
-        return '<{}, {}>'.format(self.title, self.author)
-
+        return '<{}, {}>'.format(self.title, self.user)

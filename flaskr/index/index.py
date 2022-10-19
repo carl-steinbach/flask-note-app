@@ -9,6 +9,6 @@ index_bp = Blueprint(
 
 @index_bp.route('/')
 def index():
-    # the homepage of a user displaying his notes
+    # the landing page for unauthorized users
     return render_template('index.html', title='Note App')
     

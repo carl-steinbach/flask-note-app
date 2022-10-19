@@ -18,11 +18,14 @@ def login():
         # check credentials
         result = db.session.execute(db.select(User)
                     	            .where(User.email==form.email.data))
-        if result.first() is None:
+        user_data = result.first()[0]
+        if user_data is None:
             flash('this email is not registered')
-        else:
+        elif user_data.password == form.password.data:
             flash('now logged in', 'message')
-            return redirect(url_for('home_bp.home'))        
+            return redirect(url_for('home_bp.home'))       
+        else:
+            flash('incorrect password')
 
     return render_template('login.html', title='Login', form=form)
 
@@ -31,7 +34,18 @@ def register():
     # the register page
     form = RegistrationForm()
     if (form.validate_on_submit()):
-        flash('now logged in', 'message')
-        return redirect(url_for('home_bp.home'))
+        # check already registered
+        result = db.session.execute(db.select(User)
+                    	            .where(User.email==form.email.data))
+        if result.first() is not None:
+            flash('this email is already registered')
+        else:
+            new_user = User(name=form.name.data, 
+                            email=form.email.data, 
+                            password=form.password.data)
+            db.session.add(new_user)
+            db.session.commit()
+            flash('account created', 'message')
+            return redirect(url_for('auth_bp.login'))
 
     return render_template('register.html', title='Register', form=form)

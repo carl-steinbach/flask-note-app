@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template
 from flask import current_app as app
+from flaskr.models import User
 
 home_bp = Blueprint(
     'home_bp', __name__,
@@ -10,5 +11,6 @@ home_bp = Blueprint(
 @home_bp.route('/home')
 def home():
     # the homepage of a user displaying his notes
+
     return render_template('home.html', title='Home')
     

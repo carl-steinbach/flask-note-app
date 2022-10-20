@@ -1,7 +1,9 @@
-from flask import Blueprint, flash, render_template
+from flask import Blueprint, flash, render_template, url_for, redirect
 from flask import current_app as app
-from flask_login import current_user
+from flask_login import current_user, login_required, logout_user
 from flaskr.models import User
+from flaskr import db
+
 
 home_bp = Blueprint(
     'home_bp', __name__,
@@ -9,10 +11,19 @@ home_bp = Blueprint(
     static_folder='static'
 )
 
+
 @home_bp.route('/home')
+@login_required
 def home():
-    # the homepage of a user displaying his notes
-    user = current_user
-    flash(user.name)
+    """The user home page displaying created notes"""
     return render_template('home.html', title='Home')
+
+
+@home_bp.route('/logout')
+@login_required
+def logout():
+    """Log out the current user and redirect to landing page"""
+    logout_user()
+    flash('logged out')
+    return redirect(url_for('index_bp.index'))
     

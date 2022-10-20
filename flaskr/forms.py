@@ -2,6 +2,7 @@ from flask_wtf import FlaskForm, RecaptchaField
 from wtforms import StringField, SubmitField, PasswordField, BooleanField
 from wtforms.validators import DataRequired, Length, Email, EqualTo
 
+
 class LoginForm(FlaskForm):
     email = StringField('e-mail', validators=[DataRequired(), 
                                             Email('invalid email address')])
@@ -9,6 +10,7 @@ class LoginForm(FlaskForm):
     recaptcha = RecaptchaField()
     stay_logged_in = BooleanField('stay logged in')
     submit = SubmitField('Submit')
+
 
 class RegistrationForm(FlaskForm):
     name = StringField('name', validators=[DataRequired()])

@@ -1,18 +1,20 @@
 """The Application Factory"""
+import os
 
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy 
 from flask_login import LoginManager
-import os
 
 # global libraries
 db = SQLAlchemy()
 login_manager = LoginManager()
 
+
 def create_app(test_config=None):
     # create and configure the flask app
-    app = Flask(__name__, instance_relative_config=True,
-             template_folder='templates')
+    app = Flask(__name__, 
+                instance_relative_config=True,
+                template_folder='templates')
     app.config.from_object('config.Config')
     app.config.from_object('config.Development')
     try:

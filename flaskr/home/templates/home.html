@@ -2,5 +2,13 @@
 
 {% block nav %}{% endblock %}
 {% block content %}
-    <p>Hello {{ user }}!</p>
+    <p>Hello {{ current_user.name }}!</p>
+    <div class="notes">
+    {% for note in current_user.notes %}
+        <div class="note">
+            <h2> {{ note.title }}</h2>
+            <p> {{ note.content }}</p>
+        </div>
+    {% endfor %}
+    </div>
 {% endblock %}

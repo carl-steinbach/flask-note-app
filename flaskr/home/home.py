@@ -17,13 +17,3 @@ home_bp = Blueprint(
 def home():
     """The user home page displaying created notes"""
     return render_template('home.html', title='Home')
-
-
-@home_bp.route('/logout')
-@login_required
-def logout():
-    """Log out the current user and redirect to landing page"""
-    logout_user()
-    flash('logged out')
-    return redirect(url_for('index_bp.index'))
-    

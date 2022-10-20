@@ -11,6 +11,13 @@ class User(db.Model):
     password = Column(String)
     notes = relationship('Note', cascade="all, delete-orphan")
 
+    is_authenticated = False
+    is_active = True
+    is_anonymus = False
+    
+    def get_id(self):
+        return self.email
+
     def __repr__(self) -> str:
         return '<{}, {}>'.format(self.id, self.email)
 

@@ -2,10 +2,12 @@
 
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy 
+from flask_login import LoginManager
 import os
 
 # global libraries
 db = SQLAlchemy()
+login_manager = LoginManager()
 
 def create_app(test_config=None):
     # create and configure the flask app
@@ -18,12 +20,17 @@ def create_app(test_config=None):
     except OSError:
         pass
 
+    # initialize global libraries
     db.init_app(app)
+    login_manager.init_app(app)
     
     with app.app_context():
         # import database models and create tables
         from .models import User, Note
         db.create_all()
+
+        # import login methods
+        from . import login
 
         # import and register blueprints
         from .index import index

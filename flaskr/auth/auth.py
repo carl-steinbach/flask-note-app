@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, flash, redirect, url_for
 from flask import current_app as app
+from flask_login import login_user
 from flaskr.forms import LoginForm, RegistrationForm
 from flaskr import db
 from flaskr.models import User
@@ -16,12 +17,14 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         # check credentials
-        result = db.session.execute(db.select(User)
-                    	            .where(User.email==form.email.data))
-        user_data = result.first()[0]
-        if user_data is None:
+        row_proxy = db.session.execute(db.select(User)
+                    	            .where(User.email==form.email.data)
+                                    ).first()
+        user = row_proxy[0]
+        if user is None:
             flash('this email is not registered')
-        elif user_data.password == form.password.data:
+        elif user.password == form.password.data:
+            login_user(user)
             flash('now logged in', 'message')
             return redirect(url_for('home_bp.home'))       
         else:

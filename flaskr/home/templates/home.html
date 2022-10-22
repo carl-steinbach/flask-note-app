@@ -11,4 +11,10 @@
         </div>
     {% endfor %}
     </div>
+    <form method="post" action="">
+        <div> {{ form.hidden_tag() }} </div>
+        <div> {{ form.title.label }} {{ form.title() }} </div>
+        <div> {{ form.content.label }} {{ form.content() }} </div>
+        <div> {{ form.submit() }} </div>
+    </form>
 {% endblock %}

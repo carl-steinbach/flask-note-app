@@ -21,3 +21,10 @@ class RegistrationForm(FlaskForm):
                                                             EqualTo('password')])
     recaptcha = RecaptchaField()
     submit = SubmitField('Submit')
+
+
+class CreateNoteForm(FlaskForm):
+    title = StringField('title', validators=[DataRequired()])
+    content = StringField('content', validators=[DataRequired()])
+
+    submit = SubmitField('create')

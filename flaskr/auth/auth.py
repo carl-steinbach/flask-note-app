@@ -69,7 +69,7 @@ def logout():
     """Log out the current user and redirect to landing page"""
     logout_user()
     flash('logged out')
-    return redirect(url_for('index_bp.index'))
+    return redirect(url_for('start_bp.start'))
 
 def login_debug():
     if current_user is not None:

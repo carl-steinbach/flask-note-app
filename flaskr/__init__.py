@@ -5,7 +5,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy 
 from flask_login import LoginManager
 
-# global libraries
+# global variables
 db = SQLAlchemy()
 login_manager = LoginManager()
 
@@ -35,10 +35,10 @@ def create_app(test_config=None):
         from . import login
 
         # import and register blueprints
-        from .index import index
+        from .start import start
         from .auth import auth
         from .home import home
-        app.register_blueprint(index.index_bp)
+        app.register_blueprint(start.start_bp)
         app.register_blueprint(auth.auth_bp)
         app.register_blueprint(home.home_bp)
 

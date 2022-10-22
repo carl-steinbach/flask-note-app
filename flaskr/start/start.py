@@ -2,15 +2,15 @@ from flask import Blueprint, render_template
 from flask import current_app as app
 
 
-index_bp = Blueprint(
-    'index_bp', __name__,
+start_bp = Blueprint(
+    'start_bp', __name__,
     template_folder='templates',
     static_folder='static'
 )
 
 
-@index_bp.route('/')
-def index():
+@start_bp.route('/')
+def start():
     # the landing page for unauthorized users
-    return render_template('index.html', title='Note App')
+    return render_template('start.html', title='Note App')
     

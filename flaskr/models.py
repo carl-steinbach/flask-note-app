@@ -1,4 +1,5 @@
 """The sqlite database models"""
+from flask_login import UserMixin
 from sqlalchemy import Column, ForeignKey, Integer, String, Text
 from sqlalchemy.orm import relationship
 
@@ -6,20 +7,13 @@ from flaskr import db
 
 
 # declarative configuration of tables
-class User(db.Model):
-    is_authenticated = False
-    is_active = True
-    is_anonymus = False
+class User(UserMixin, db.Model):
 
     id = Column(Integer, primary_key=True)
     name = Column(String)
     email = Column(String, unique=True)
     password = Column(String)
     notes = relationship('Note', cascade="all, delete-orphan")
-
-    
-    def get_id(self):
-        return self.email
 
     def __repr__(self) -> str:
         return '<{}, {}>'.format(self.id, self.email)

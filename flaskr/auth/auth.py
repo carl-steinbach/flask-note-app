@@ -1,9 +1,9 @@
 """The authorization logic and routes"""
 from flask import Blueprint, render_template, flash, redirect, url_for
 from flask import current_app as app
-from flask_login import login_user, current_user, login_required, logout_user
+from flask_login import current_user, login_user, logout_user, login_required
 
-from flaskr import db
+from flaskr import db, login_manager
 from flaskr.forms import LoginForm, RegistrationForm
 from flaskr.models import User
 
@@ -20,23 +20,16 @@ def login():
     """the login page"""
     form = LoginForm()
     if form.validate_on_submit():
-        # check credentials
+        # check credentials and log the user in
         result = db.session.execute(db.select(User)
                     	               .where(User.email==form.email.data)
                                       ).first()
         if result is not None:
             user = result[0]
-
             if user.password == form.password.data:
                 login_user(user)
-
-                flash("user.is_active={}".format(user.is_active))
-                flash("user = {}, user.is_authenticated={}"
-                    .format(user, user.is_authenticated))
-                flash("user = {}, user.is_authenticated={}"
-                    .format(current_user, current_user.is_authenticated))
-                flash('now logged in', 'message')
-                
+                flash('logged in')
+                # redirect to the users homepage
                 return redirect(url_for('home_bp.home'))
             else:
                 flash('incorrect password')
@@ -77,4 +70,15 @@ def logout():
     logout_user()
     flash('logged out')
     return redirect(url_for('index_bp.index'))
-    
+
+def login_debug():
+    if current_user is not None:
+        debug_str = "user.is_active={}, user.is_authenticated={}, user.is_anonymous={}".format(
+                        current_user.is_active,
+                        current_user.is_authenticated,
+                        current_user.is_anonymous
+                    )
+    else:
+        debug_str = "not logged in"
+    flash(debug_str)
+

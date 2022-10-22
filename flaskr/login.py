@@ -4,12 +4,10 @@ from .models import User
 
 
 @login_manager.user_loader
-def load_user(user_email):
-    row_proxy = db.session.execute(db.select(User)
-                                   .where(User.email==user_email)
-                                  ).first()
-    if row_proxy is None:
-        return None
-    else:
-        return row_proxy[0]
+def load_user(user_id):
+    result = db.session.execute(db.select(User).where(User.id == user_id)).first()
+    if result is not None:
+        return result[0]
+
+    return None
                                     
